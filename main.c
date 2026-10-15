@@ -3,7 +3,8 @@
 #include <assert.h>
 #pragma warning(disable:4996)
 
-enum { TAILLECMD = 31 };
+//Je me suis permis de rajouter true/false pour les booléens
+enum { TRUE = 1, FALSE = 0, TAILLECMD = 31 };
 
 int main() {
 	char saisie[TAILLECMD];
