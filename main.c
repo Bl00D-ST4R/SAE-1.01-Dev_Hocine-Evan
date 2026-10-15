@@ -6,7 +6,6 @@
 //Je me suis permis de rajouter true/false pour les booléens
 enum {  TRUE = 1, 
         FALSE = 0, 
-		MAX_TAILLECMD = 31 
 		MAX_TAILLECMD = 31,
 		MAX_ETUDIANTS = 100,
 		MAX_PARTICIPANTS = 100,
