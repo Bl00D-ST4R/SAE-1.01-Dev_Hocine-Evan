@@ -61,6 +61,13 @@ char verification() {
 
 }
 
+char verif_taille(int taille, int max) {
+	if (taille<max){
+		return 1;
+	}
+	else { return 0; }
+}
+
 void Creation_concours() {
 	Concours temp;
 	printf("Saisir le nom d'un concours");
@@ -81,6 +88,7 @@ int main() {
 	char saisie[MAX_TAILLECMD];
 	Liste_participants liste_participants;
 	Liste_concours liste_concours;
+	liste_participants.nbParticipants = 0;
 	//définition des pointeurs
 	int *p_liste = &liste_participants;
 	//on initialise tous les participants à NULL pour simplifier tkt Hocine je fais après
@@ -89,8 +97,8 @@ int main() {
 		//Liste des fonctions pour l'utilisateur
 		printf("Voici les differentes commandes:\nEXIT\nINSCRIRE\nPARTICIPANTS\nCREER\nCONCOURS\nGAIN\nSCORES\nCLASSEMENT\nCOMPARAISON\nBILAN\nVeuillez entre une de ces commandes:\t ");
 		scanf("%s", saisie);
-		if (strcmp(saisie, "INSCRIRE" == 0) {
-			inscrire(&p_liste);
+		if (strcmp(saisie, "INSCRIRE" == 0)) {
+			inscrire(p_liste);
 		}else{}
 
 	} while (strcmp(saisie, "EXIT" == 1)); 
