@@ -44,13 +44,15 @@ typedef struct {
 	Concours concours[MAX_NOMBRE_CONCOURS];
 }Liste_concours;
 
-void inscrire(liste) {
+void inscrire() {
 	Participant temp;
 	printf("saisir votre nom et prenom:\n");
 	scanf("%s %s", temp.nom_joueur, temp.prenom_joueur);
+	(((sizeof(temp.nom_joueur) / sizeof(temp.nom_joueur[0])) < MAX_PRENOM_JOUEUR)//Verifie que ça dépasse pas la taille
+	int a = verif_taille((sizeof(temp.nom_joueur) / sizeof(temp.nom_joueur[0]),MAX_PRENOM_JOUEUR));
 	
 	/*
-	if (verification(/*temp, liste_p )) {
+	if (verification(temp, liste_p )) {
 		printf("Inscription enregistree(%d)");
 	}
 	else {
