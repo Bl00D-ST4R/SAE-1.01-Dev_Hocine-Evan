@@ -31,6 +31,15 @@ typedef struct { //structure qui reunit tout les participants pour eviter de les
 	Participant participants[MAX_PARTICIPANTS];
 }Liste_participants;
 
+typedef struct {
+	char Nom_concours[MAX_NOM_CONCOURS];
+	unsigned int nb_participants_concours;
+}Concours;
+typedef struct {
+	int nb_concours;
+	Concours concours[MAX_NOMBRE_CONCOURS];
+}Liste_concours;
+
 void inscrire(liste) {
 	Participant temp;
 	printf("saisir votre nom et prenom:\n");
@@ -48,9 +57,26 @@ char verification() {
 
 }
 
+void Creation_concours() {
+	Concours temp;
+	printf("Saisir le nom d'un concours");
+	scanf("%s", temp.Nom_concours);
+	for (int i = 0; i <= MAX_NOMBRE_CONCOURS; ++i) {
+		if (strcmp(temp.Nom_concours,AAAAAAAAAA[i].Nom_concours==1)) {
+			liste_concours[i].Nom_concours = temp.Nom_concours;
+			printf("Creation enregistrée (%d) ", i);
+		}
+		else {
+			printf("Nom incorrect");
+		}
+	}
+}
+
+
 int main() {
 	char saisie[MAX_TAILLECMD];
 	Liste_participants liste_participants;
+	Liste_concours liste_concours;
 	//définition des pointeurs
 	int *p_liste = &liste_participants;
 	//on initialise tous les participants à NULL pour simplifier tkt Hocine je fais après
