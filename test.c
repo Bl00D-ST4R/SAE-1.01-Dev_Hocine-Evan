@@ -3,6 +3,10 @@
 #include <assert.h>
 #pragma warning(disable:4996)
 
+
+//POUR CREATION CONCOURS ET INSCRIRE FAUT METTRE UN POINTEUR VERS LA STRUCTURE PRINCIPALE
+
+
 enum { 
 	/*
 	//Je me suis permis de rajouter true/false pour les booléens
