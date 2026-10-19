@@ -3,13 +3,15 @@
 #include <assert.h>
 #pragma warning(disable:4996)
 
-enum { //Je me suis permis de rajouter true/false pour les booléens
+enum { 
+	/*
+	//Je me suis permis de rajouter true/false pour les booléens
 	//strcmp renvoie 0 lorsque les deux str sont identiques... Donc ça donne un truc bizarre avec les TRUE FALSE 
 	STRCMP_TRUE = 0,
 	STRCMP_FALSE = 1,
 	//C'est plus clair pour nous
 	TRUE = 1,
-	FALSE = 0,
+	FALSE = 0,*/
 	MAX_TAILLECMD = 31,
 	MAX_ETUDIANTS = 100,
 	MAX_PARTICIPANTS = 100,
@@ -57,9 +59,9 @@ int main() {
 		//Liste des fonctions pour l'utilisateur
 		printf("Voici les differentes commandes:\nEXIT\nINSCRIRE\nPARTICIPANTS\nCREER\nCONCOURS\nGAIN\nSCORES\nCLASSEMENT\nCOMPARAISON\nBILAN\nVeuillez entre une de ces commandes:\t ");
 		scanf("%s", saisie);
-		if (strcmp(saisie, "INSCRIRE" == STRCMP_TRUE)) {
+		if (strcmp(saisie, "INSCRIRE" == 0) {
 			inscrire(&p_liste);
 		}else{}
 
-	} while (strcmp(saisie, "EXIT" == STRCMP_FALSE)); 
+	} while (strcmp(saisie, "EXIT" == 1)); 
 }
