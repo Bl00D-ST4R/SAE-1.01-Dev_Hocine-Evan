@@ -4,7 +4,7 @@
 #pragma warning(disable:4996)
 
 
-//=========================================================== ENUM ET CONSTANTES ET STRUCT ===============================================================
+//=========================================================== ENUM ET CONSTANTES ET STRUCTS ===============================================================
 
 enum {
 	/*
@@ -15,6 +15,7 @@ enum {
 	//C'est plus clair pour nous
 	TRUE = 1,
 	FALSE = 0,*/
+	//Au final mr De Botton a dit 0 et 1 c'est pas des nombres magiques doooonc bon je les mets en comments en attendant
 	MAX_TAILLECMD = 31,
 	MAX_ETUDIANTS = 100,
 	MAX_PARTICIPANTS = 100,
@@ -49,10 +50,26 @@ typedef struct {
 
 //============================================================ FONCTIONS QUI MARCHENT PAS TOUCHER =========================================================
 
+// à virer dans le rendu final 
 void exemple_de_fonction_qui_marche(int YaRienQuiMarchePtdrr){
 	printf("On fait genre ça marche tkt");
 }
-//Dès qu'un truc marche à 100% Tu le mets là on touche pu sauf exceptions mais c'est moi qui gère
+//Dès qu'un truc marche à 100% Tu le mets là on touche pu sauf exceptions mais c'est moi qui gère dans ce cas
+
+//Fonction qui initialise la liste des participants avec nb participants à 0 
+//et le tableau participant à des valeurs Null ou placeholder partout pour faciliter les comparaisons et le remplissage ultérieur
+//On va faire pareil pour concours donc retient bien comment ça marche
+//Fin la logique derrière au moins stp
+void init_participants(Liste_participants* lp) {
+	lp->nbParticipants = 0;
+	Participant placeholder;
+	//au debut j'ai essayé avec placeholder.nom_joueur = "NULL" mais j'avais oublié que fallait mettre strcpy *emoji clown*
+	strcpy(placeholder.nom_joueur, "NULL");
+	strcpy(placeholder.prenom_joueur, "NULL");
+	for (int i = 0;i < MAX_PARTICIPANTS;++i) {
+		lp->participants[i] = placeholder;
+	}
+}
 
 //============================================================ FONCTIONS IMPORTANTES ======================================================================
 
@@ -71,40 +88,34 @@ void inscrire(Liste_participants* lp) {
 	} while ((((sizeof(temp.nom_joueur) / sizeof(temp.nom_joueur[0])) < MAX_NOM_JOUEUR) && (((sizeof(temp.prenom_joueur) / sizeof(temp.prenom_joueur[0]))) < MAX_PRENOM_JOUEUR)));
 	
 	//JUSQUE LA CA MARCHE
-
 	/*
-	if (verification(temp, liste_p )) {
+	if (verification(temp, lp )) {
 		printf("Inscription enregistree du participant n° %d");
 	}
 	else {
 	}
 	*/
 }
-char verification() {
 
+
+
+/*
+char verification(Participant p, Liste_participants* lp ) {
+	//verifie qu'on puisse ou non inscrire ce putain de participant temporaire
 }
-
-//Fonction qui initialise la liste des participants avec nb participants à 0 
-//et le tableau participant à des valeurs Null ou placeholder partout pour faciliter les comparaisons et le remplissage ultérieur
-void init_liste(Liste_participants *lp){
-	lp->nbParticipants = 0;
-}
-
+*/
 //============================================================ FONCTION MAIN BOUCLE PRINCIPALE =============================================================
 
 
 int main() {
-	//Initialisation des structs dont on se servira dans le programme
+	//Initialisation de la struct participants avec déclaration, pointeur, et fonction init (voir la fonction meme pour explications)
 	Liste_participants liste_participants;
+	int* p_liste = &liste_participants;
+	init_participants(p_liste);
 	
 	//on initialise tous les participants à NULL pour simplifier tkt Hocine je fais après
-	//init_liste();
 
 	Liste_concours liste_concours;
-
-	//définition des pointeurs
-	int* p_liste = &liste_participants;
-
 
 	//Boucle principale 
 	char saisie[MAX_TAILLECMD];
@@ -114,6 +125,9 @@ int main() {
 		scanf("%s", saisie);
 		if (strcmp(saisie, "INSCRIRE") == 0) {
 			inscrire(p_liste);
+		}
+		if (strcmp(saisie, "PARTICIPANTS") == 0) {
+			//affiche_participants(p_liste);
 		}
 		else {}
 
