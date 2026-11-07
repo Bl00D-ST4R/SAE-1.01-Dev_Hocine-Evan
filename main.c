@@ -60,15 +60,17 @@ void exemple_de_fonction_qui_marche(int YaRienQuiMarchePtdrr){
 void inscrire(Liste_participants* lp) {
 	//à virer après hein
 	printf("LOREM IPSUM VOTEZ LFI\n");
-
+	//Création d'un participant temporaire pour les test
+	//On l'ajoutera ensuite dans la liste des participants si tout est raccord
 	Participant temp;
-	//Boucle qui demande le nom et prénom du joueur tant que la taille n'est pas respectée
+	//Boucle qui demande le nom et prénom du participant tant que la taille n'est pas respectée
 	do{
 		printf("Saisir votre nom et prenom:\n");
 		scanf("%s %s", temp.nom_joueur, temp.prenom_joueur);
 	//Verifie que ça dépasse pas la taille
 	} while ((((sizeof(temp.nom_joueur) / sizeof(temp.nom_joueur[0])) < MAX_NOM_JOUEUR) && (((sizeof(temp.prenom_joueur) / sizeof(temp.prenom_joueur[0]))) < MAX_PRENOM_JOUEUR)));
 	
+	//JUSQUE LA CA MARCHE
 
 	/*
 	if (verification(temp, liste_p )) {
@@ -82,14 +84,19 @@ char verification() {
 
 }
 
+//Fonction qui initialise la liste des participants avec nb participants à 0 
+//et le tableau participant à des valeurs Null ou placeholder partout pour faciliter les comparaisons et le remplissage ultérieur
+void init_liste(Liste_participants *lp){
+	lp->nbParticipants = 0;
+}
 
 //============================================================ FONCTION MAIN BOUCLE PRINCIPALE =============================================================
 
 
 int main() {
-	char saisie[MAX_TAILLECMD];
+	//Initialisation des structs dont on se servira dans le programme
 	Liste_participants liste_participants;
-	liste_participants.nbParticipants = 0;
+	
 	//on initialise tous les participants à NULL pour simplifier tkt Hocine je fais après
 	//init_liste();
 
@@ -100,6 +107,7 @@ int main() {
 
 
 	//Boucle principale 
+	char saisie[MAX_TAILLECMD];
 	do {
 		//Liste des fonctions pour l'utilisateur
 		printf("Voici les differentes commandes:\nEXIT\nINSCRIRE\nPARTICIPANTS\nCREER\nCONCOURS\nGAIN\nSCORES\nCLASSEMENT\nCOMPARAISON\nBILAN\nVeuillez entre une de ces commandes:\n");
