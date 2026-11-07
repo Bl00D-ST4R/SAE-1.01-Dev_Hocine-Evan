@@ -3,6 +3,11 @@
 #include <assert.h>
 #pragma warning(disable:4996)
 
+//=========================================================== TRUC PRIO A FAIRE : ========================================================================
+
+//EVAN : FINIR LA FONCTION VERIFICATION_PARTICIPANTS 
+//HOCINE : faire les trucs de la struc concours avec les fonctions et tout en suivant le modèle de participant
+
 
 //=========================================================== ENUM ET CONSTANTES ET STRUCTS ===============================================================
 
@@ -17,7 +22,7 @@ enum {
 	FALSE = 0,*/
 	//Au final mr De Botton a dit 0 et 1 c'est pas des nombres magiques doooonc bon je les mets en comments en attendant
 	MAX_TAILLECMD = 31,
-	MAX_ETUDIANTS = 100,
+	MAX_ETUDIANTS = 100, //il sert à quoi lui ???
 	MAX_PARTICIPANTS = 100,
 	MAX_NOM_CONCOURS = 30 + 1,
 	MAX_PRENOM_JOUEUR = 30 + 1,
@@ -72,38 +77,43 @@ void init_participants(Liste_participants* lp) {
 }
 
 //============================================================ FONCTIONS IMPORTANTES ======================================================================
+//Pour les fonctions ou tu touches pas au truc juste tu regardes les données mets const 
+char verif_p(const Participant* p, const Liste_participants* lp) {
+	//verifie qu'on puisse ou non inscrire ce putain de participant temporaire
 
+	if (lp->nbParticipants == MAX_PARTICIPANTS) { //deja on verifie que y'ai la place pour inscrire le boug
+
+	}
+	return 0;
+}
 
 void inscrire(Liste_participants* lp) {
 	//à virer après hein
 	printf("LOREM IPSUM VOTEZ LFI\n");
-	//Création d'un participant temporaire pour les test
-	//On l'ajoutera ensuite dans la liste des participants si tout est raccord
+	//Création d'un participant temporaire pour les test que l'on ajoutera ensuite dans la liste des participants si tout est raccord
 	Participant temp;
-	//Boucle qui demande le nom et prénom du participant tant que la taille n'est pas respectée
-	do{
+	do{ //Boucle qui demande le nom et prénom du participant tant que la taille n'est pas respectée
 		printf("Saisir votre nom et prenom:\n");
 		scanf("%s %s", temp.nom_joueur, temp.prenom_joueur);
 	//Verifie que ça dépasse pas la taille
+	//A mettre plus tard dans verif_taille pour la proprete stv mais eeeeh 
 	} while ((((sizeof(temp.nom_joueur) / sizeof(temp.nom_joueur[0])) < MAX_NOM_JOUEUR) && (((sizeof(temp.prenom_joueur) / sizeof(temp.prenom_joueur[0]))) < MAX_PRENOM_JOUEUR)));
 	
-	//JUSQUE LA CA MARCHE
-	/*
-	if (verification(temp, lp )) {
+	
+	//JUSQUE LA CA MARCHE========================================================================
+
+	int indice_nv = lp->nbParticipants;
+	if (verif_p(&temp, lp )) {
+		lp->participants[indice_nv] = temp ;
+		++lp->nbParticipants;
 		printf("Inscription enregistree du participant n° %d");
 	}
 	else {
 	}
-	*/
+
 }
 
 
-
-/*
-char verification(Participant p, Liste_participants* lp ) {
-	//verifie qu'on puisse ou non inscrire ce putain de participant temporaire
-}
-*/
 //============================================================ FONCTION MAIN BOUCLE PRINCIPALE =============================================================
 
 
@@ -129,7 +139,9 @@ int main() {
 		if (strcmp(saisie, "PARTICIPANTS") == 0) {
 			//affiche_participants(p_liste);
 		}
-		else {}
+		else {
+			printf("Saisie incorrecte ! Merci de bien vouloir réessayer\n");
+		}
 
 	} while (strcmp(saisie, "EXIT") == 1);
 	printf("FIN DE PROGRAMME");
