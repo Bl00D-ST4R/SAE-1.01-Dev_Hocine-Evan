@@ -81,7 +81,7 @@ void init_participants(Liste_participants* lp) {
 char verif_p(const Participant* p, const Liste_participants* lp) {
 	//verifie qu'on puisse ou non inscrire ce putain de participant temporaire
 
-	if (lp->nbParticipants == MAX_PARTICIPANTS) { //deja on verifie que y'ai la place pour inscrire le boug
+	if (lp->nbParticipants < MAX_PARTICIPANTS) { //deja on verifie que y'ai la place pour inscrire le boug
 
 	}
 	return 0;
