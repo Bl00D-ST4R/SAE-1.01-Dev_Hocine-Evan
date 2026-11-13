@@ -6,8 +6,8 @@
 //===========================================================
 // TRUCS PRIOS A FAIRE 
 //===========================================================
-//EVAN : FAIRE SP3 + corriger fautes
-//HOCINE : Fait Bilan
+//EVAN : BILAN + rapport + gihtub
+//HOCINE : FINIT SP3 PENDANT QUE JE FAIS BILAN
 
 //J'ai refait les séparateurs c'est + joli
 //Verif taille servait à rien vu qu'on  a le droit à strlen donc je l'ai viré
@@ -32,8 +32,7 @@ enum {
     MAX_NOM_CONCOURS = 31,
     MAX_PRENOM_JOUEUR = 31,
     MAX_NOM_JOUEUR = 31,
-    MAX_NOMBRE_CONCOURS = 20,
-    MAX_LONGUEUR_JOUEUR = 30
+    MAX_NOMBRE_CONCOURS = 20
 };
 
 typedef struct {
@@ -80,8 +79,8 @@ void inscrire(Liste_participants* lp) {
     //le 30s permet de couper la str et garder que la taille limite donc ça evite les erreurs
     scanf("%30s %30s", temp.prenom_joueur, temp.nom_joueur);
     //du coup les asserts ne servent pas trop à grand chose mais bon ils sont obligatoires
-    assert(strlen(temp.prenom_joueur) <= MAX_LONGUEUR_JOUEUR);
-    assert(strlen(temp.nom_joueur) <= MAX_LONGUEUR_JOUEUR);
+    assert(strlen(temp.prenom_joueur) <= MAX_PRENOM_JOUEUR);
+    assert(strlen(temp.nom_joueur) <= MAX_NOM_JOUEUR);
     //on met 0 partout dans les scores meme pour les concours qui existent pas encore
     for (int i = 0; i < MAX_NOMBRE_CONCOURS; ++i) {
         temp.scores[i] = 0;
@@ -134,7 +133,7 @@ void creer(Liste_concours* lc) {
     //On aurait pu mettre unsigned à la place de >=0 comme ça on aurait été sur de travailler qu'avec des positifs
     assert(lc->nbConcours >= 0 && lc->nbConcours < MAX_NOMBRE_CONCOURS);
     scanf("%30s", nom);//Encore une fois grace au 30s le assert ne sert pas à grand chose
-    assert(strlen(nom) <= MAX_LONGUEUR_JOUEUR);
+    assert(strlen(nom) <= MAX_NOM_CONCOURS);
     //pas besoin de faire une sous fonction comme verif car y'a juste un str à comparer
     for (int i = 0; i < lc->nbConcours; ++i) {
         if (strcmp(nom, lc->concours[i].Nom_concours) == 0) {
@@ -169,10 +168,75 @@ void affiche_concours(const Liste_concours* lc, const Liste_participants* lp) {
     }
     for (int i = 0; i < lc->nbConcours; ++i) {
         int n = p_non_nul(lp, i);
-        printf("(%d) %s : %d participant%s\n",i + 1,lc->concours[i].Nom_concours,n);
+        printf("(%d) %s : %d participants\n",i + 1,lc->concours[i].Nom_concours,n);
     }
+    return;
 }
 
+//===========================================================
+// FONCTIONS GAIN ET SCORE SP2 FAIT PAR HOCINE
+//===========================================================
+
+//Utilisée par gain et score donc autant en faire une fonction
+int verif_idp(int idp, Liste_participants* lp) {
+    if (idp < 1 || idp > lp->nbParticipants) {
+        return 1;
+    }
+    return 0;
+}
+
+//Commande GAIN
+void gain(Liste_participants* lp, const Liste_concours* lc) {
+    //Variables temporaires que l'user va rentrer
+    int idp, idc, pts;
+    scanf("%d %d %d", &idp, &idc, &pts);
+
+    //Teste s'il ya a un participants à l'id demandé
+    if (verif_idp(idp, lp)) {
+        printf("Participant incorrect\n");
+        return;
+    }
+    //Pareil pour concours
+    if (idc < 1 || idc > lc->nbConcours) {
+        printf("Concours incorrect\n");
+        return;
+    }
+    //Pas possible d'avoir des points négatifs sauf evan en dictée ce dyslexique
+    if (pts <= 0) {
+        printf("Points incorrects\n");
+        return;
+    }
+    //Quand tout est bon rajout des points
+    lp->participants[idp - 1].scores[idc - 1] += pts;
+    printf("Gain enregistre\n");
+}
+
+//Commande SCORES
+void affiche_scores(const Liste_participants* lp, const Liste_concours* lc) {
+    int idp;
+    scanf("%d", &idp);
+    //Teste s'il ya a un participants à l'id demandé
+    if (verif_idp(idp, lp)) {
+        printf("Identifiant incorrect\n");
+        return;
+    }
+    //Pour eviter de recopier &lp->participants[idp - 1] à chaque fois
+    const Participant* p = &lp->participants[idp - 1];
+    printf("%s %s\n", p->prenom_joueur, p->nom_joueur);
+
+    //Pour verifier si le participant a des points
+    int a_pts = 0;
+    for (int i = 0; i < lc->nbConcours; ++i) {
+        if (p->scores[i] != 0) {
+            a_pts = 1;
+            printf("(%d) %s : %d points\n",i + 1,lc->concours[i].Nom_concours,p->scores[i]);
+        }
+    }
+    //Quand le participant n'a pas de points dans tout les concours
+    if (!a_pts) {
+        printf("Aucun gain\n");
+    }
+}
 
 //===========================================================
 // BOUCLE PRINCIPALE AVEC MAIN ET INVITE DE COMMANDE
